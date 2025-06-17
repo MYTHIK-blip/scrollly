@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../forge/scroll_forge.dart'; // add this at the top
 
 class WizardScreen extends StatefulWidget {
   @override
@@ -109,20 +110,24 @@ class _WizardScreenState extends State<WizardScreen> {
     );
   }
 
-  void _generateScroll() {
-    showDialog(
-      context: context,
-      builder: (context) => AlertDialog(
-        title: Text('Scroll Generated!'),
-        content: Text(
-            'Product: $_selectedProductType\nColor: $_selectedColor\n(Soon: Real PDF or file export)'),
-        actions: [
-          TextButton(
-            onPressed: () => Navigator.pop(context),
-            child: Text('OK'),
-          ),
-        ],
-      ),
-    );
-  }
+void _generateScroll() async {
+  final forge = ScrollForge();
+  final path = await forge.forgeScroll(
+    productType: _selectedProductType,
+    themeColor: _selectedColor.toString(),
+  );
+
+  showDialog(
+    context: context,
+    builder: (context) => AlertDialog(
+      title: Text('Scroll Generated!'),
+      content: Text('Saved at:\n$path'),
+      actions: [
+        TextButton(
+          onPressed: () => Navigator.pop(context),
+          child: Text('OK'),
+        ),
+      ],
+    ),
+  );
 }
