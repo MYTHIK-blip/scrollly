@@ -9,17 +9,17 @@ class ScrollForge {
     required String themeColor,
   }) async {
     final directory = await getApplicationDocumentsDirectory();
-    final path = '${directory.path}/scrollly_${DateTime.now().millisecondsSinceEpoch}.txt';
+    final path = '${directory.path}/scrolly_${DateTime.now().millisecondsSinceEpoch}.txt';
     final file = File(path);
 
     final content = '''
-    🌀 SCROLLLY SCROLL 🌀
-    
-    Product Type: $productType
-    Theme Color: $themeColor
+📜 SCROLLLY SCROLL 📜
 
-    This is your civic artifact.
-    ''';
+Product Type: $productType
+Theme Color: $themeColor
+
+This is your civic artifact.
+''';
 
     await file.writeAsString(content);
     return path;

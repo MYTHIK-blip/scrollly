@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
-import '../forge/scroll_forge.dart'; // ✅ CORRECT
+import '../forge/scroll_forge.dart';
 
 class WizardScreen extends StatefulWidget {
   @override
-  WizardScreenState createState() => WizardScreenState();
+  _WizardScreenState createState() => _WizardScreenState();
 }
 
-class WizardScreenState extends State<WizardScreen> {
+class _WizardScreenState extends State<WizardScreen> {
   int _currentStep = 0;
 
   String _selectedProductType = 'Template';
@@ -108,7 +108,7 @@ class WizardScreenState extends State<WizardScreen> {
         ],
       ),
     );
-  }
+  } // <-- MAKE SURE THIS CLOSES build()
 
   void _generateScroll() async {
     final forge = ScrollForge();
