@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'ui/wizard_screen.dart';
+
 
 void main() {
   runApp(ScrolllyApp());
@@ -25,10 +27,14 @@ class ScrolllyHome extends StatelessWidget {
         title: Text('📜 Scrollly'),
       ),
       body: Center(
-        child: Text(
-          'Welcome to Scrollly!\nYour civic forge for templates, planners & mini ebooks.',
-          textAlign: TextAlign.center,
-          style: TextStyle(fontSize: 18),
+        child: ElevatedButton(
+          child: Text('Start Scrollly Wizard'),
+          onPressed: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => WizardScreen()),
+            );
+          },
         ),
       ),
     );
