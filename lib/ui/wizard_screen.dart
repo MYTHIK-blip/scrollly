@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
-import '../forge/scroll_forge.dart'; // add this at the top
+import '../forge/scroll_forge.dart'; // ✅ CORRECT
 
 class WizardScreen extends StatefulWidget {
   @override
-  _WizardScreenState createState() => _WizardScreenState();
+  WizardScreenState createState() => WizardScreenState();
 }
 
-class _WizardScreenState extends State<WizardScreen> {
+class WizardScreenState extends State<WizardScreen> {
   int _currentStep = 0;
 
   String _selectedProductType = 'Template';
@@ -25,7 +25,7 @@ class _WizardScreenState extends State<WizardScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Scrollly Wizard'),
+        title: Text('Scrolly Wizard'),
       ),
       body: Stepper(
         currentStep: _currentStep,
@@ -110,24 +110,25 @@ class _WizardScreenState extends State<WizardScreen> {
     );
   }
 
-void _generateScroll() async {
-  final forge = ScrollForge();
-  final path = await forge.forgeScroll(
-    productType: _selectedProductType,
-    themeColor: _selectedColor.toString(),
-  );
+  void _generateScroll() async {
+    final forge = ScrollForge();
+    final path = await forge.forgeScroll(
+      productType: _selectedProductType,
+      themeColor: _selectedColor.toString(),
+    );
 
-  showDialog(
-    context: context,
-    builder: (context) => AlertDialog(
-      title: Text('Scroll Generated!'),
-      content: Text('Saved at:\n$path'),
-      actions: [
-        TextButton(
-          onPressed: () => Navigator.pop(context),
-          child: Text('OK'),
-        ),
-      ],
-    ),
-  );
+    showDialog(
+      context: context,
+      builder: (context) => AlertDialog(
+        title: Text('Scroll Generated!'),
+        content: Text('Saved at:\n$path'),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.pop(context),
+            child: Text('OK'),
+          ),
+        ],
+      ),
+    );
+  }
 }
