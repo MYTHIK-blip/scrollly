@@ -7,6 +7,8 @@ void main() {
 }
 
 class ScrolllyApp extends StatelessWidget {
+  const ScrolllyApp({super.key});
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -20,6 +22,8 @@ class ScrolllyApp extends StatelessWidget {
 }
 
 class ScrolllyHome extends StatelessWidget {
+  const ScrolllyHome({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(

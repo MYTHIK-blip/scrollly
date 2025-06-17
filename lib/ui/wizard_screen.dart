@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import '../forge/scroll_forge.dart';
 
 class WizardScreen extends StatefulWidget {
+  const WizardScreen({super.key});
+
   @override
   _WizardScreenState createState() => _WizardScreenState();
 }
