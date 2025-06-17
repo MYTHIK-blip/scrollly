@@ -8,6 +8,18 @@ class WizardScreen extends StatefulWidget {
 class _WizardScreenState extends State<WizardScreen> {
   int _currentStep = 0;
 
+  String _selectedProductType = 'Template';
+  Color _selectedColor = Colors.indigo;
+
+  final List<String> _productTypes = ['Template', 'Planner', 'Ebook'];
+  final List<Color> _colors = [
+    Colors.indigo,
+    Colors.teal,
+    Colors.pink,
+    Colors.red,
+    Colors.green,
+  ];
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -21,6 +33,8 @@ class _WizardScreenState extends State<WizardScreen> {
             setState(() {
               _currentStep += 1;
             });
+          } else {
+            _generateScroll();
           }
         },
         onStepCancel: () {
@@ -33,18 +47,79 @@ class _WizardScreenState extends State<WizardScreen> {
         steps: [
           Step(
             title: Text('Choose Product Type'),
-            content: Text('Pick: Template, Planner, or Ebook.'),
+            content: DropdownButton<String>(
+              value: _selectedProductType,
+              items: _productTypes.map((String value) {
+                return DropdownMenuItem<String>(
+                  value: value,
+                  child: Text(value),
+                );
+              }).toList(),
+              onChanged: (String? newValue) {
+                setState(() {
+                  _selectedProductType = newValue!;
+                });
+              },
+            ),
             isActive: _currentStep >= 0,
           ),
           Step(
             title: Text('Customize'),
-            content: Text('Adjust theme, colors, fonts.'),
+            content: Row(
+              children: _colors.map((color) {
+                return GestureDetector(
+                  onTap: () {
+                    setState(() {
+                      _selectedColor = color;
+                    });
+                  },
+                  child: Container(
+                    margin: EdgeInsets.symmetric(horizontal: 5),
+                    child: CircleAvatar(
+                      backgroundColor: color,
+                      radius: 20,
+                      child: _selectedColor == color
+                          ? Icon(Icons.check, color: Colors.white)
+                          : null,
+                    ),
+                  ),
+                );
+              }).toList(),
+            ),
             isActive: _currentStep >= 1,
           ),
           Step(
             title: Text('Export'),
-            content: Text('Generate and save your scroll.'),
+            content: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text('Product: $_selectedProductType'),
+                Text('Theme Color: $_selectedColor'),
+                SizedBox(height: 20),
+                ElevatedButton(
+                  onPressed: _generateScroll,
+                  child: Text('Generate Scroll (Mock)'),
+                ),
+              ],
+            ),
             isActive: _currentStep >= 2,
+          ),
+        ],
+      ),
+    );
+  }
+
+  void _generateScroll() {
+    showDialog(
+      context: context,
+      builder: (context) => AlertDialog(
+        title: Text('Scroll Generated!'),
+        content: Text(
+            'Product: $_selectedProductType\nColor: $_selectedColor\n(Soon: Real PDF or file export)'),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.pop(context),
+            child: Text('OK'),
           ),
         ],
       ),
